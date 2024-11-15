@@ -1,0 +1,102 @@
+                                                       Task2:
+                                                       SIMPLE CALCULATOR
+SIMPLE CALCULATOR
+#include <iostream>
+#include <stdexcept>
+#include <string>
+#include <limits>
+
+using namespace std;
+
+double perform_operation(double num1, double num2, const string& op) {
+    if (op == "+") {
+        return num1 + num2;
+    } else if (op == "-") {
+        return num1 - num2;
+    } else if (op == "*") {
+        return num1 * num2;
+    } else if (op == "/") {
+        if (num2 == 0) {
+            throw invalid_argument("Error! Division by zero is not allowed.");
+        } else {
+            return num1 / num2;
+        }
+    } else {
+        throw invalid_argument("Invalid operator! Valid operators are: +, -, *, /.");
+    }
+}
+
+void calculator() {
+    double num1, num2;
+    string operator_;
+    
+    while (true) {
+        cout << "Enter the first number: ";
+        while (!(cin >> num1)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input! Please enter a valid number: ";
+        }
+
+        cout << "Enter the second number: ";
+        while (!(cin >> num2)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input! Please enter a valid number: ";
+        }
+
+        cout << "Enter an operator (+, -, *, /): ";
+        while (true) {
+            cin >> operator_;
+            if (operator_ == "+" || operator_ == "-" || operator_ == "*" || operator_ == "/") {
+                break;
+            } else {
+                cout << "Invalid operator! Valid operators are: +, -, *, /." << endl;
+            }
+        }
+
+        try {
+            double result = perform_operation(num1, num2, operator_);
+            cout << "Result: " << result << endl;
+        } catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+        }
+
+        char choice;
+        cout << "Do you want to perform another calculation? (y/n): ";
+        cin >> choice;
+        if (choice == 'n' || choice == 'N') {
+            cout << "Thank you for using the calculator. Goodbye!" << endl;
+            break;
+        }
+    }
+}
+
+int main() {
+    calculator();
+    return 0;
+}
+output: 
+Enter the first number: 10
+Enter the second number: 20
+Enter an operator (+, -, *, /): +
+Result: 30
+Do you want to perform another calculation? (y/n): y
+Enter the first number: 40
+Enter the second number: 60
+Enter an operator (+, -, *, /): -
+Result: -20
+Do you want to perform another calculation? (y/n): y
+Enter the first number: 30
+Enter the second number: 40
+Enter an operator (+, -, *, /): *
+Result: 1200
+Do you want to perform another calculation? (y/n): y
+Enter the first number: 20
+Enter the second number: 50
+Enter an operator (+, -, *, /): /
+Result: 0.4
+Do you want to perform another calculation? (y/n): n
+Thank you for using the calculator. Goodbye!
+
+                                                                  
